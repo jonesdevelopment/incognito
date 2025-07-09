@@ -35,11 +35,13 @@ public final class ConfigFile {
 
     public final static Runnable SAVE_CONFIG = () -> {
         if (!CONFIG_FOLDER.exists() && !CONFIG_FOLDER.mkdirs()) {
-            throw new IllegalStateException("Could not create config folder!");
+            IncognitoMod.LOGGER.error("Could not create configuration folder");
+            return;
         }
         try {
             if (!CONFIG_FILE.exists() && !CONFIG_FILE.createNewFile()) {
-                throw new IllegalStateException("Could not create config file!");
+                IncognitoMod.LOGGER.error("Could not create configuration file");
+                return;
             }
             final String json = GSON.toJson(IncognitoMod.getOptions());
             Files.writeString(CONFIG_FILE.toPath(), json, StandardCharsets.UTF_8);
