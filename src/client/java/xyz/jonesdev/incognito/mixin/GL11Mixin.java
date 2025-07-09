@@ -17,34 +17,24 @@
 
 package xyz.jonesdev.incognito.mixin;
 
-import com.mojang.blaze3d.platform.GlDebugInfo;
+import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.jonesdev.incognito.IncognitoMod;
 
-@Mixin(value = GlDebugInfo.class, remap = false)
-public final class GlDebugInfoMixin {
+@Mixin(value = GL11.class, remap = false)
+public final class GL11Mixin {
 
-    @Inject(method = "getVendor", at = @At("HEAD"), cancellable = true)
-    private static void getVendor(final CallbackInfoReturnable<String> cir) {
+    @Inject(method = "glGetString", at = @At("HEAD"), cancellable = true)
+    private static void glGetString(final int name, final CallbackInfoReturnable<String> cir) {
         if (!IncognitoMod.getOptions().disable && IncognitoMod.getOptions().spoofedGPU.shouldSpoof()) {
-            cir.setReturnValue(IncognitoMod.getOptions().spoofedGPU.getVendor());
-        }
-    }
-
-    @Inject(method = "getRenderer", at = @At("HEAD"), cancellable = true)
-    private static void getRenderer(final CallbackInfoReturnable<String> cir) {
-        if (!IncognitoMod.getOptions().disable && IncognitoMod.getOptions().spoofedGPU.shouldSpoof()) {
-            cir.setReturnValue(IncognitoMod.getOptions().spoofedGPU.getRenderer());
-        }
-    }
-
-    @Inject(method = "getVersion", at = @At("HEAD"), cancellable = true)
-    private static void getVersion(final CallbackInfoReturnable<String> cir) {
-        if (!IncognitoMod.getOptions().disable && IncognitoMod.getOptions().spoofedGPU.shouldSpoof()) {
-            cir.setReturnValue(IncognitoMod.getOptions().spoofedGPU.getVersion());
+            switch (name) {
+                case GL11.GL_VENDOR -> cir.setReturnValue(IncognitoMod.getOptions().spoofedGPU.getVendor());
+                case GL11.GL_RENDERER -> cir.setReturnValue(IncognitoMod.getOptions().spoofedGPU.getRenderer());
+                case GL11.GL_VERSION -> cir.setReturnValue(IncognitoMod.getOptions().spoofedGPU.getVersion());
+            }
         }
     }
 }
