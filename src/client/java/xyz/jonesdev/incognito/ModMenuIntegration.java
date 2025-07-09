@@ -17,6 +17,7 @@
 
 package xyz.jonesdev.incognito;
 
+import com.mojang.blaze3d.platform.GLX;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
@@ -50,43 +51,64 @@ public final class ModMenuIntegration implements ModMenuApi {
         cpu.addEntry(entryBuilder.startBooleanToggle(Text.literal("Enable Spoofing"),
                         IncognitoMod.getOptions().spoofCPU)
                 .setDefaultValue(false)
-                .setSaveConsumer(newValue -> IncognitoMod.getOptions().spoofCPU = newValue)
+                .setSaveConsumer(newValue -> {
+                    IncognitoMod.getOptions().spoofCPU = newValue;
+                    rebuildCPUInfo();
+                })
                 .build());
 
         cpu.addEntry(entryBuilder.startIntField(Text.literal("Physical Cores"),
                         IncognitoMod.getOptions().physicalCoreCount)
-                .setDefaultValue(8)
-                .setSaveConsumer(newValue -> IncognitoMod.getOptions().physicalCoreCount = newValue)
+                .setDefaultValue(8) // Example
+                .setSaveConsumer(newValue -> {
+                    IncognitoMod.getOptions().physicalCoreCount = newValue;
+                    rebuildCPUInfo();
+                })
                 .build());
 
         cpu.addEntry(entryBuilder.startIntField(Text.literal("Logical Cores"),
                         IncognitoMod.getOptions().logicalCoreCount)
-                .setDefaultValue(16)
-                .setSaveConsumer(newValue -> IncognitoMod.getOptions().logicalCoreCount = newValue)
+                .setDefaultValue(16) // Example
+                .setSaveConsumer(newValue -> {
+                    IncognitoMod.getOptions().logicalCoreCount = newValue;
+                    rebuildCPUInfo();
+                })
                 .build());
 
         cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Name"),
                         IncognitoMod.getOptions().cpuName)
-                .setDefaultValue("AMD Ryzen 7 5800X 8-Core Processor")
-                .setSaveConsumer(newValue -> IncognitoMod.getOptions().cpuName = newValue)
+                .setDefaultValue("AMD Ryzen 7 5800X 8-Core Processor") // Example
+                .setSaveConsumer(newValue -> {
+                    IncognitoMod.getOptions().cpuName = newValue;
+                    rebuildCPUInfo();
+                })
                 .build());
 
         cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Vendor"),
                         IncognitoMod.getOptions().cpuVendor)
-                .setDefaultValue(CPUVendor.AMD)
-                .setSaveConsumer(newValue -> IncognitoMod.getOptions().cpuVendor = newValue)
+                .setDefaultValue(CPUVendor.AMD) // Example
+                .setSaveConsumer(newValue -> {
+                    IncognitoMod.getOptions().cpuVendor = newValue;
+                    rebuildCPUInfo();
+                })
                 .build());
 
         cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Family"),
                         IncognitoMod.getOptions().cpuFamily)
-                .setDefaultValue("23")
-                .setSaveConsumer(newValue -> IncognitoMod.getOptions().cpuFamily = newValue)
+                .setDefaultValue("23") // Example
+                .setSaveConsumer(newValue -> {
+                    IncognitoMod.getOptions().cpuFamily = newValue;
+                    rebuildCPUInfo();
+                })
                 .build());
 
         cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Model"),
                         IncognitoMod.getOptions().cpuModel)
-                .setDefaultValue("113")
-                .setSaveConsumer(newValue -> IncognitoMod.getOptions().cpuModel = newValue)
+                .setDefaultValue("113") // Example
+                .setSaveConsumer(newValue -> {
+                    IncognitoMod.getOptions().cpuModel = newValue;
+                    rebuildCPUInfo();
+                })
                 .build());
 
         final ConfigCategory gpu = builder.getOrCreateCategory(Text.literal("GPU"));
@@ -99,23 +121,27 @@ public final class ModMenuIntegration implements ModMenuApi {
 
         gpu.addEntry(entryBuilder.startStrField(Text.literal("GPU Model"),
                         IncognitoMod.getOptions().gpuModel)
-                .setDefaultValue("AMD Radeon RX 7700 XT")
+                .setDefaultValue("AMD Radeon RX 7700 XT") // Example
                 .setSaveConsumer(newValue -> IncognitoMod.getOptions().gpuModel = newValue)
                 .build());
 
         gpu.addEntry(entryBuilder.startStrField(Text.literal("GPU Vendor"),
                         IncognitoMod.getOptions().gpuVendor)
-                .setDefaultValue(GPUVendor.AMD)
+                .setDefaultValue(GPUVendor.AMD) // Example
                 .setSaveConsumer(newValue -> IncognitoMod.getOptions().gpuVendor = newValue)
                 .build());
 
         gpu.addEntry(entryBuilder.startStrField(Text.literal("GPU Version"),
                         IncognitoMod.getOptions().gpuVersion)
-                .setDefaultValue(GPUVersion.AMD)
+                .setDefaultValue(GPUVersion.AMD) // Example
                 .setSaveConsumer(newValue -> IncognitoMod.getOptions().gpuVersion = newValue)
                 .build());
 
         builder.transparentBackground();
         return builder;
+    }
+
+    private static void rebuildCPUInfo() {
+        GLX._init(0, false);
     }
 }
