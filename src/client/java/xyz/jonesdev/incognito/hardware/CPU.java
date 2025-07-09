@@ -18,8 +18,14 @@
 package xyz.jonesdev.incognito.hardware;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum CPU {
+    REAL("No modification", -1, -1),
+    UNKNOWN(null, -1, -1),
+
     // AMD Ryzen processors
     AMD_RYZEN_3_3100("AMD Ryzen 3 3100 4-Core Processor", 4, 8),
     AMD_RYZEN_3_3300X("AMD Ryzen 3 3300X 4-Core Processor", 4, 8),
@@ -106,7 +112,9 @@ public enum CPU {
     INTEL_CORE_I9_13900K("Intel(R) Core(TM) i9-13900K CPU @ 3.00GHz", 24, 32), // 8 P-cores, 16 E-cores, 24 physical, 32 logical
     INTEL_CORE_I9_14900K("Intel(R) Core(TM) i9-14900K CPU @ 3.00GHz", 24, 32); // 8 P-cores, 16 E-cores, 24 physical, 32 logical
 
-    private final String name;
+    private static final Logger log = LoggerFactory.getLogger(CPU.class);
+    private final @Nullable String name;
+    private final String displayName;
     private final String vendor;
     private final int physicalCoreCount;
     private final int logicalCoreCount;
@@ -116,18 +124,58 @@ public enum CPU {
      * @param physicalCoreCount The number of physical cores.
      * @param logicalCoreCount The number of logical cores (threads).
      */
-    CPU(final @NotNull String name, final int physicalCoreCount, final int logicalCoreCount) {
+    CPU(final @Nullable String name, final int physicalCoreCount, final int logicalCoreCount) {
         this.name = name;
-        this.vendor = name.startsWith("AMD") ? "AuthenticAMD" : "GenuineIntel";
+        this.displayName = getDisplayName(name);
+        this.vendor = getVendor(name);
         this.physicalCoreCount = physicalCoreCount;
         this.logicalCoreCount = logicalCoreCount;
     }
 
     /**
+     * @param name The full name of the processor.
+     * @return A shortened version of the name.
+     */
+    private static @NotNull String getDisplayName(final @Nullable String name) {
+        if (name == null) {
+            return "<unknown>";
+        } else if (name.startsWith("AMD")) {
+            final String[] split = name.split(" ");
+            return String.format("Ryzen %s %s", split[2], split[3]);
+        } else if (name.startsWith("Intel")) {
+            final String[] split = name.split(" ");
+            return split[2];
+        }
+        return "<unmodified>";
+    }
+
+    /**
+     * @param name The full name of the processor.
+     * @return The vendor of the processor (e.g., Intel, AMD).
+     */
+    private static @NotNull String getVendor(final @Nullable String name) {
+        if (name == null) {
+            return "<unknown>";
+        } else if (name.startsWith("AMD")) {
+            return "AuthenticAMD";
+        } else if (name.startsWith("Intel")) {
+            return "GenuineIntel";
+        }
+        return "<unmodified>";
+    }
+
+    /**
      * @return The name of the processor.
      */
-    public String getName() {
+    public @Nullable String getName() {
         return name;
+    }
+
+    /**
+     * @return The short name of the processor used in the configuration.
+     */
+    public String getDisplayName() {
+        return displayName;
     }
 
     /**
@@ -149,5 +197,21 @@ public enum CPU {
      */
     public int getLogicalCoreCount() {
         return logicalCoreCount;
+    }
+
+    public boolean shouldSpoof() {
+        return this != REAL && this != UNKNOWN;
+    }
+
+    public static @NotNull CPU fromName(final @NotNull String name) {
+        for (final CPU cpu : values()) {
+            if (cpu == UNKNOWN || cpu.name == null) {
+                continue;
+            }
+            if (cpu.name.equals(name) || cpu.displayName.equals(name)) {
+                return cpu;
+            }
+        }
+        return CPU.UNKNOWN;
     }
 }

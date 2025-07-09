@@ -18,13 +18,27 @@
 package xyz.jonesdev.incognito;
 
 import net.fabricmc.api.ClientModInitializer;
-import xyz.jonesdev.incognito.hardware.CPU;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
+import xyz.jonesdev.incognito.config.ConfigFile;
+import xyz.jonesdev.incognito.config.Options;
 
 public final class IncognitoMod implements ClientModInitializer {
-  public static CPU spoofedCPU = CPU.INTEL_CORE_I7_8700K;
+  public static final Logger LOGGER = LogManager.getLogger("incognito");
+
+  private static Options sessionOptions = new Options();
+
+  public static Options getOptions() {
+    return sessionOptions;
+  }
+
+  public static void updateOptions(final @NotNull Options options) {
+    sessionOptions = options;
+  }
 
   @Override
   public void onInitializeClient() {
-    // This entrypoint is suitable for setting up client-specific logic, such as rendering.
+    ConfigFile.loadConfig();
   }
 }

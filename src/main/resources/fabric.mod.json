@@ -14,9 +14,11 @@
   "icon": "assets/incognito/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [],
     "client": [
       "xyz.jonesdev.incognito.IncognitoMod"
+    ],
+    "modmenu": [
+      "xyz.jonesdev.incognito.ModMenuIntegration"
     ]
   },
   "mixins": [

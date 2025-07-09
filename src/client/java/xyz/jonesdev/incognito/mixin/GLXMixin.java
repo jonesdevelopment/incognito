@@ -17,27 +17,25 @@
 
 package xyz.jonesdev.incognito.mixin;
 
+import com.mojang.blaze3d.platform.GLX;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import oshi.hardware.CentralProcessor;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.jonesdev.incognito.IncognitoMod;
+import xyz.jonesdev.incognito.hardware.CPU;
 
-@Mixin(value = CentralProcessor.ProcessorIdentifier.class, remap = false)
-public final class ProcessorIdentifierMixin {
+@Mixin(GLX.class)
+public final class GLXMixin {
 
-    @Inject(method = "getName", at = @At("HEAD"), cancellable = true)
-    public void getName(final CallbackInfoReturnable<String> cir) {
-        if (IncognitoMod.getOptions().spoofedCPU.shouldSpoof()) {
-            cir.setReturnValue(IncognitoMod.getOptions().spoofedCPU.getName());
-        }
-    }
+    @Shadow
+    private static String cpuInfo;
 
-    @Inject(method = "getVendor", at = @At("HEAD"), cancellable = true)
-    public void getVendor(final CallbackInfoReturnable<String> cir) {
-        if (IncognitoMod.getOptions().spoofedCPU.shouldSpoof()) {
-            cir.setReturnValue(IncognitoMod.getOptions().spoofedCPU.getVendor());
+    @Inject(method = "_init", at = @At("TAIL"))
+    private static void _init(int debugVerbosity, boolean debugSync, CallbackInfo ci) {
+        if (IncognitoMod.getOptions().spoofedCPU == CPU.UNKNOWN) {
+            cpuInfo = null;
         }
     }
 }

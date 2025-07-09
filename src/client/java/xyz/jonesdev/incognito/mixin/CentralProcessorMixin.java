@@ -18,28 +18,26 @@
 package xyz.jonesdev.incognito.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import oshi.hardware.common.AbstractCentralProcessor;
 import xyz.jonesdev.incognito.IncognitoMod;
 
 @Mixin(value = AbstractCentralProcessor.class, remap = false)
 public final class CentralProcessorMixin {
 
-    /**
-     * @author Jones
-     * @reason Spoof physical processor count
-     */
-    @Overwrite
-    public int getPhysicalProcessorCount() {
-        return IncognitoMod.spoofedCPU.getPhysicalCoreCount();
+    @Inject(method = "getPhysicalProcessorCount", at = @At("HEAD"), cancellable = true)
+    public void getPhysicalProcessorCount(final CallbackInfoReturnable<Integer> cir) {
+        if (IncognitoMod.getOptions().spoofedCPU.shouldSpoof()) {
+            cir.setReturnValue(IncognitoMod.getOptions().spoofedCPU.getPhysicalCoreCount());
+        }
     }
 
-    /**
-     * @author Jones
-     * @reason Spoof logic processor count
-     */
-    @Overwrite
-    public int getLogicalProcessorCount() {
-        return IncognitoMod.spoofedCPU.getLogicalCoreCount();
+    @Inject(method = "getLogicalProcessorCount", at = @At("HEAD"), cancellable = true)
+    public void getLogicalProcessorCount(final CallbackInfoReturnable<Integer> cir) {
+        if (IncognitoMod.getOptions().spoofedCPU.shouldSpoof()) {
+            cir.setReturnValue(IncognitoMod.getOptions().spoofedCPU.getLogicalCoreCount());
+        }
     }
 }
