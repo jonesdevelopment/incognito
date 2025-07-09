@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "incognito",
+  "version": "${version}",
+  "name": "incognito",
+  "description": "Anonymize your Minecraft clips by spoofing your hardware statistics (F3)",
+  "authors": [
+    "Jones Development"
+  ],
+  "contact": {
+    "homepage": "https://jonesdev.xyz/"
+  },
+  "license": "GPL-v3.0",
+  "icon": "assets/incognito/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [],
+    "client": [
+      "xyz.jonesdev.incognito.IncognitoMod"
+    ]
+  },
+  "mixins": [
+    "incognito.mixins.json",
+    {
+      "config": "incognito.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.10",
+    "minecraft": "~1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
