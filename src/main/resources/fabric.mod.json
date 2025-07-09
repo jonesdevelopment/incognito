@@ -3,7 +3,7 @@
   "id": "incognito",
   "version": "${version}",
   "name": "incognito",
-  "description": "Anonymize your Minecraft clips by spoofing your hardware statistics (F3)",
+  "description": "Anonymize Minecraft by spoofing computer hardware specifications",
   "authors": [
     "Jones Development"
   ],
