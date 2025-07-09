@@ -8,7 +8,9 @@
     "Jones Development"
   ],
   "contact": {
-    "homepage": "https://jonesdev.xyz/"
+    "homepage": "https://jonesdev.xyz/",
+    "issues": "https://github.com/jonesdevelopment/incognito/issues",
+    "sources": "https://github.com/jonesdevelopment/incognito"
   },
   "license": "GPL-v3.0",
   "icon": "assets/incognito/icon.png",

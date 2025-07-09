@@ -19,7 +19,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"terry" {
+		"incognito" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}
