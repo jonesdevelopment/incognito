@@ -46,7 +46,7 @@ public final class Options {
     public String cpuVendor = CPUVendor.AMD;
 
     @Expose
-    @SerializedName("spoof-cpu")
+    @SerializedName("spoof-gpu")
     public boolean spoofGPU = false;
 
     @Expose
