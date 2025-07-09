@@ -3,8 +3,7 @@
   "package": "xyz.jonesdev.incognito.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "GL11Mixin",
-    "GLXMixin"
+    "GL11Mixin"
   ],
   "injectors": {
     "defaultRequire": 1

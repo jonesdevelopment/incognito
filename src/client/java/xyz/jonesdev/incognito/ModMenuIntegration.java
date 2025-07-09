@@ -17,7 +17,6 @@
 
 package xyz.jonesdev.incognito;
 
-import com.mojang.blaze3d.platform.GLX;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
@@ -27,10 +26,8 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import xyz.jonesdev.incognito.config.ConfigFile;
-import xyz.jonesdev.incognito.hardware.CPU;
-import xyz.jonesdev.incognito.hardware.GPU;
-
-import java.util.Arrays;
+import xyz.jonesdev.incognito.hardware.GPUVendor;
+import xyz.jonesdev.incognito.hardware.GPUVersion;
 
 public final class ModMenuIntegration implements ModMenuApi {
 
@@ -47,32 +44,56 @@ public final class ModMenuIntegration implements ModMenuApi {
         builder.setSavingRunnable(ConfigFile.SAVE_CONFIG);
 
         final ConfigEntryBuilder entryBuilder = builder.entryBuilder();
-        final ConfigCategory general = builder.getOrCreateCategory(Text.literal("General"));
+        final ConfigCategory cpu = builder.getOrCreateCategory(Text.literal("CPU"));
 
-        general.addEntry(entryBuilder.startBooleanToggle(Text.literal("Disabled"),
-                        IncognitoMod.getOptions().disable)
+        cpu.addEntry(entryBuilder.startBooleanToggle(Text.literal("Enable Spoofing"),
+                        IncognitoMod.getOptions().spoofCPU)
                 .setDefaultValue(false)
-                .setSaveConsumer(newValue -> IncognitoMod.getOptions().disable = newValue)
+                .setSaveConsumer(newValue -> IncognitoMod.getOptions().spoofCPU = newValue)
                 .build());
 
-        general.addEntry(entryBuilder.startStringDropdownMenu(Text.literal("Spoofed CPU"),
-                        IncognitoMod.getOptions().spoofedCPU.getDisplayName(),
-                        Text::literal)
-                .setDefaultValue(IncognitoMod.getOptions().spoofedCPU.getDisplayName())
-                .setSelections(Arrays.stream(CPU.values()).map(CPU::getDisplayName).toList())
-                .setSaveConsumer(cpu -> {
-                    IncognitoMod.getOptions().spoofedCPU = CPU.fromName(cpu);
-                    // Re-initialize GLX to re-build the cpuInfo string.
-                    GLX._init(0, false);
-                })
+        cpu.addEntry(entryBuilder.startIntField(Text.literal("Physical Cores"),
+                        IncognitoMod.getOptions().physicalCoreCount)
+                .setDefaultValue(8)
+                .setSaveConsumer(newValue -> IncognitoMod.getOptions().physicalCoreCount = newValue)
                 .build());
 
-        general.addEntry(entryBuilder.startStringDropdownMenu(Text.literal("Spoofed GPU"),
-                        IncognitoMod.getOptions().spoofedGPU.getDisplayName(),
-                        Text::literal)
-                .setDefaultValue(IncognitoMod.getOptions().spoofedGPU.getDisplayName())
-                .setSelections(Arrays.stream(GPU.values()).map(GPU::getDisplayName).toList())
-                .setSaveConsumer(gpu -> IncognitoMod.getOptions().spoofedGPU = GPU.fromName(gpu))
+        cpu.addEntry(entryBuilder.startIntField(Text.literal("Logical Cores"),
+                        IncognitoMod.getOptions().logicalCoreCount)
+                .setDefaultValue(16)
+                .setSaveConsumer(newValue -> IncognitoMod.getOptions().logicalCoreCount = newValue)
+                .build());
+
+        cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Model"),
+                        IncognitoMod.getOptions().cpuModel)
+                .setDefaultValue("AMD Ryzen 7 5800X 8-Core Processor")
+                .setSaveConsumer(newValue -> IncognitoMod.getOptions().cpuModel = newValue)
+                .build());
+
+        final ConfigCategory gpu = builder.getOrCreateCategory(Text.literal("GPU"));
+
+        gpu.addEntry(entryBuilder.startBooleanToggle(Text.literal("Enable Spoofing"),
+                        IncognitoMod.getOptions().spoofGPU)
+                .setDefaultValue(false)
+                .setSaveConsumer(newValue -> IncognitoMod.getOptions().spoofGPU = newValue)
+                .build());
+
+        gpu.addEntry(entryBuilder.startStrField(Text.literal("GPU Model"),
+                        IncognitoMod.getOptions().gpuModel)
+                .setDefaultValue("AMD Radeon RX 7700 XT")
+                .setSaveConsumer(newValue -> IncognitoMod.getOptions().gpuModel = newValue)
+                .build());
+
+        gpu.addEntry(entryBuilder.startStrField(Text.literal("GPU Vendor"),
+                        IncognitoMod.getOptions().gpuVendor)
+                .setDefaultValue(GPUVendor.AMD)
+                .setSaveConsumer(newValue -> IncognitoMod.getOptions().gpuVendor = newValue)
+                .build());
+
+        gpu.addEntry(entryBuilder.startStrField(Text.literal("GPU Version"),
+                        IncognitoMod.getOptions().gpuVersion)
+                .setDefaultValue(GPUVersion.AMD)
+                .setSaveConsumer(newValue -> IncognitoMod.getOptions().gpuVersion = newValue)
                 .build());
 
         builder.transparentBackground();

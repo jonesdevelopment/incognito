@@ -19,20 +19,45 @@ package xyz.jonesdev.incognito.config;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import xyz.jonesdev.incognito.hardware.CPU;
-import xyz.jonesdev.incognito.hardware.GPU;
+import xyz.jonesdev.incognito.hardware.CPUVendor;
+import xyz.jonesdev.incognito.hardware.GPUVendor;
+import xyz.jonesdev.incognito.hardware.GPUVersion;
 
 public final class Options {
 
     @Expose
-    @SerializedName("disable")
-    public boolean disable = false;
+    @SerializedName("spoof-cpu")
+    public boolean spoofCPU = false;
 
     @Expose
-    @SerializedName("spoofed-cpu")
-    public CPU spoofedCPU = CPU.REAL;
+    @SerializedName("cpu-physical-cores")
+    public int physicalCoreCount = 8;
 
     @Expose
-    @SerializedName("spoofed-gpu")
-    public GPU spoofedGPU = GPU.REAL;
+    @SerializedName("cpu-logical-cores")
+    public int logicalCoreCount = 16;
+
+    @Expose
+    @SerializedName("cpu-model")
+    public String cpuModel = "AMD Ryzen 7 5800X 8-Core Processor";
+
+    @Expose
+    @SerializedName("cpu-vendor")
+    public String cpuVendor = CPUVendor.AMD;
+
+    @Expose
+    @SerializedName("spoof-cpu")
+    public boolean spoofGPU = false;
+
+    @Expose
+    @SerializedName("gpu-model")
+    public String gpuModel = "AMD Radeon RX 7700 XT";
+
+    @Expose
+    @SerializedName("gpu-vendor")
+    public String gpuVendor = GPUVendor.AMD;
+
+    @Expose
+    @SerializedName("gpu-version")
+    public String gpuVersion = GPUVersion.AMD;
 }

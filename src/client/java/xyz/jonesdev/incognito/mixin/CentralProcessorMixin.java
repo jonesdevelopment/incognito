@@ -29,15 +29,15 @@ public final class CentralProcessorMixin {
 
     @Inject(method = "getPhysicalProcessorCount", at = @At("HEAD"), cancellable = true)
     public void getPhysicalProcessorCount(final CallbackInfoReturnable<Integer> cir) {
-        if (!IncognitoMod.getOptions().disable && IncognitoMod.getOptions().spoofedCPU.shouldSpoof()) {
-            cir.setReturnValue(IncognitoMod.getOptions().spoofedCPU.getPhysicalCoreCount());
+        if (IncognitoMod.getOptions().spoofCPU) {
+            cir.setReturnValue(IncognitoMod.getOptions().physicalCoreCount);
         }
     }
 
     @Inject(method = "getLogicalProcessorCount", at = @At("HEAD"), cancellable = true)
     public void getLogicalProcessorCount(final CallbackInfoReturnable<Integer> cir) {
-        if (!IncognitoMod.getOptions().disable && IncognitoMod.getOptions().spoofedCPU.shouldSpoof()) {
-            cir.setReturnValue(IncognitoMod.getOptions().spoofedCPU.getLogicalCoreCount());
+        if (IncognitoMod.getOptions().spoofCPU) {
+            cir.setReturnValue(IncognitoMod.getOptions().logicalCoreCount);
         }
     }
 }

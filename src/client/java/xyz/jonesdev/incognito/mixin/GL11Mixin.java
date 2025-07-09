@@ -29,11 +29,11 @@ public final class GL11Mixin {
 
     @Inject(method = "glGetString", at = @At("HEAD"), cancellable = true)
     private static void glGetString(final int name, final CallbackInfoReturnable<String> cir) {
-        if (!IncognitoMod.getOptions().disable && IncognitoMod.getOptions().spoofedGPU.shouldSpoof()) {
+        if (IncognitoMod.getOptions().spoofGPU) {
             switch (name) {
-                case GL11.GL_VENDOR -> cir.setReturnValue(IncognitoMod.getOptions().spoofedGPU.getVendor());
-                case GL11.GL_RENDERER -> cir.setReturnValue(IncognitoMod.getOptions().spoofedGPU.getRenderer());
-                case GL11.GL_VERSION -> cir.setReturnValue(IncognitoMod.getOptions().spoofedGPU.getVersion());
+                case GL11.GL_VENDOR -> cir.setReturnValue(IncognitoMod.getOptions().gpuVendor);
+                case GL11.GL_RENDERER -> cir.setReturnValue(IncognitoMod.getOptions().gpuModel);
+                case GL11.GL_VERSION -> cir.setReturnValue(IncognitoMod.getOptions().gpuVersion);
             }
         }
     }
