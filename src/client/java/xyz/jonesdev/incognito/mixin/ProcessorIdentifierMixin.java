@@ -30,7 +30,7 @@ public final class ProcessorIdentifierMixin {
     @Inject(method = "getName", at = @At("HEAD"), cancellable = true)
     public void getName(final CallbackInfoReturnable<String> cir) {
         if (IncognitoMod.getOptions().spoofCPU) {
-            cir.setReturnValue(IncognitoMod.getOptions().cpuModel);
+            cir.setReturnValue(IncognitoMod.getOptions().cpuName);
         }
     }
 
@@ -38,6 +38,20 @@ public final class ProcessorIdentifierMixin {
     public void getVendor(final CallbackInfoReturnable<String> cir) {
         if (IncognitoMod.getOptions().spoofCPU) {
             cir.setReturnValue(IncognitoMod.getOptions().cpuVendor);
+        }
+    }
+
+    @Inject(method = "getFamily", at = @At("HEAD"), cancellable = true)
+    public void getFamily(final CallbackInfoReturnable<String> cir) {
+        if (IncognitoMod.getOptions().spoofCPU) {
+            cir.setReturnValue(IncognitoMod.getOptions().cpuFamily);
+        }
+    }
+
+    @Inject(method = "getModel", at = @At("HEAD"), cancellable = true)
+    public void getModel(final CallbackInfoReturnable<String> cir) {
+        if (IncognitoMod.getOptions().spoofCPU) {
+            cir.setReturnValue(IncognitoMod.getOptions().cpuModel);
         }
     }
 }

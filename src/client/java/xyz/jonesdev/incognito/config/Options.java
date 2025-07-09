@@ -38,12 +38,20 @@ public final class Options {
     public int logicalCoreCount = 16;
 
     @Expose
-    @SerializedName("cpu-model")
-    public String cpuModel = "AMD Ryzen 7 5800X 8-Core Processor";
+    @SerializedName("cpu-name")
+    public String cpuName = "AMD Ryzen 7 5800X 8-Core Processor";
 
     @Expose
     @SerializedName("cpu-vendor")
     public String cpuVendor = CPUVendor.AMD;
+
+    @Expose
+    @SerializedName("cpu-family")
+    public String cpuFamily = "23";
+
+    @Expose
+    @SerializedName("cpu-model")
+    public String cpuModel = "113";
 
     @Expose
     @SerializedName("spoof-gpu")

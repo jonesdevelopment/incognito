@@ -65,16 +65,28 @@ public final class ModMenuIntegration implements ModMenuApi {
                 .setSaveConsumer(newValue -> IncognitoMod.getOptions().logicalCoreCount = newValue)
                 .build());
 
-        cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Model"),
-                        IncognitoMod.getOptions().cpuModel)
+        cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Name"),
+                        IncognitoMod.getOptions().cpuName)
                 .setDefaultValue("AMD Ryzen 7 5800X 8-Core Processor")
-                .setSaveConsumer(newValue -> IncognitoMod.getOptions().cpuModel = newValue)
+                .setSaveConsumer(newValue -> IncognitoMod.getOptions().cpuName = newValue)
                 .build());
 
         cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Vendor"),
                         IncognitoMod.getOptions().cpuVendor)
                 .setDefaultValue(CPUVendor.AMD)
                 .setSaveConsumer(newValue -> IncognitoMod.getOptions().cpuVendor = newValue)
+                .build());
+
+        cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Family"),
+                        IncognitoMod.getOptions().cpuFamily)
+                .setDefaultValue("23")
+                .setSaveConsumer(newValue -> IncognitoMod.getOptions().cpuFamily = newValue)
+                .build());
+
+        cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Model"),
+                        IncognitoMod.getOptions().cpuModel)
+                .setDefaultValue("113")
+                .setSaveConsumer(newValue -> IncognitoMod.getOptions().cpuModel = newValue)
                 .build());
 
         final ConfigCategory gpu = builder.getOrCreateCategory(Text.literal("GPU"));
