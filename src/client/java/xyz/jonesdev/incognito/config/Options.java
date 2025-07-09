@@ -20,6 +20,7 @@ package xyz.jonesdev.incognito.config;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import xyz.jonesdev.incognito.hardware.CPU;
+import xyz.jonesdev.incognito.hardware.GPU;
 
 public final class Options {
 
@@ -30,4 +31,8 @@ public final class Options {
     @Expose
     @SerializedName("spoofed-cpu")
     public CPU spoofedCPU = CPU.REAL;
+
+    @Expose
+    @SerializedName("spoofed-gpu")
+    public GPU spoofedGPU = GPU.REAL;
 }

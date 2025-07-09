@@ -23,12 +23,12 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import xyz.jonesdev.incognito.config.ConfigFile;
 import xyz.jonesdev.incognito.hardware.CPU;
+import xyz.jonesdev.incognito.hardware.GPU;
 
 import java.util.Arrays;
 
@@ -63,8 +63,16 @@ public final class ModMenuIntegration implements ModMenuApi {
                 .setSaveConsumer(cpu -> {
                     IncognitoMod.getOptions().spoofedCPU = CPU.fromName(cpu);
                     // Re-initialize GLX to re-build the cpuInfo string.
-                    GLX._init(MinecraftClient.getInstance().options.glDebugVerbosity, false);
+                    GLX._init(0, false);
                 })
+                .build());
+
+        general.addEntry(entryBuilder.startStringDropdownMenu(Text.literal("Spoofed GPU"),
+                        IncognitoMod.getOptions().spoofedGPU.getDisplayName(),
+                        Text::literal)
+                .setDefaultValue(IncognitoMod.getOptions().spoofedGPU.getDisplayName())
+                .setSelections(Arrays.stream(GPU.values()).map(GPU::getDisplayName).toList())
+                .setSaveConsumer(gpu -> IncognitoMod.getOptions().spoofedGPU = GPU.fromName(gpu))
                 .build());
 
         builder.transparentBackground();

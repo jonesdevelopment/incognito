@@ -19,8 +19,6 @@ package xyz.jonesdev.incognito.hardware;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public enum CPU {
     REAL("No modification", -1, -1),
@@ -112,7 +110,6 @@ public enum CPU {
     INTEL_CORE_I9_13900K("Intel(R) Core(TM) i9-13900K CPU @ 3.00GHz", 24, 32), // 8 P-cores, 16 E-cores, 24 physical, 32 logical
     INTEL_CORE_I9_14900K("Intel(R) Core(TM) i9-14900K CPU @ 3.00GHz", 24, 32); // 8 P-cores, 16 E-cores, 24 physical, 32 logical
 
-    private static final Logger log = LoggerFactory.getLogger(CPU.class);
     private final @Nullable String name;
     private final String displayName;
     private final String vendor;
