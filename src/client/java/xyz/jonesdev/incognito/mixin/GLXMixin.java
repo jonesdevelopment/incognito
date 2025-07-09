@@ -34,7 +34,7 @@ public final class GLXMixin {
 
     @Inject(method = "_init", at = @At("TAIL"))
     private static void _init(int debugVerbosity, boolean debugSync, CallbackInfo ci) {
-        if (IncognitoMod.getOptions().spoofedCPU == CPU.UNKNOWN) {
+        if (!IncognitoMod.getOptions().disable && IncognitoMod.getOptions().spoofedCPU == CPU.UNKNOWN) {
             cpuInfo = null;
         }
     }

@@ -29,21 +29,21 @@ public final class GlDebugInfoMixin {
 
     @Inject(method = "getVendor", at = @At("HEAD"), cancellable = true)
     private static void getVendor(final CallbackInfoReturnable<String> cir) {
-        if (IncognitoMod.getOptions().spoofedGPU.shouldSpoof()) {
+        if (!IncognitoMod.getOptions().disable && IncognitoMod.getOptions().spoofedGPU.shouldSpoof()) {
             cir.setReturnValue(IncognitoMod.getOptions().spoofedGPU.getVendor());
         }
     }
 
     @Inject(method = "getRenderer", at = @At("HEAD"), cancellable = true)
     private static void getRenderer(final CallbackInfoReturnable<String> cir) {
-        if (IncognitoMod.getOptions().spoofedGPU.shouldSpoof()) {
+        if (!IncognitoMod.getOptions().disable && IncognitoMod.getOptions().spoofedGPU.shouldSpoof()) {
             cir.setReturnValue(IncognitoMod.getOptions().spoofedGPU.getRenderer());
         }
     }
 
     @Inject(method = "getVersion", at = @At("HEAD"), cancellable = true)
     private static void getVersion(final CallbackInfoReturnable<String> cir) {
-        if (IncognitoMod.getOptions().spoofedGPU.shouldSpoof()) {
+        if (!IncognitoMod.getOptions().disable && IncognitoMod.getOptions().spoofedGPU.shouldSpoof()) {
             cir.setReturnValue(IncognitoMod.getOptions().spoofedGPU.getVersion());
         }
     }

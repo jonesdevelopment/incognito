@@ -29,14 +29,14 @@ public final class ProcessorIdentifierMixin {
 
     @Inject(method = "getName", at = @At("HEAD"), cancellable = true)
     public void getName(final CallbackInfoReturnable<String> cir) {
-        if (IncognitoMod.getOptions().spoofedCPU.shouldSpoof()) {
+        if (!IncognitoMod.getOptions().disable && IncognitoMod.getOptions().spoofedCPU.shouldSpoof()) {
             cir.setReturnValue(IncognitoMod.getOptions().spoofedCPU.getName());
         }
     }
 
     @Inject(method = "getVendor", at = @At("HEAD"), cancellable = true)
     public void getVendor(final CallbackInfoReturnable<String> cir) {
-        if (IncognitoMod.getOptions().spoofedCPU.shouldSpoof()) {
+        if (!IncognitoMod.getOptions().disable && IncognitoMod.getOptions().spoofedCPU.shouldSpoof()) {
             cir.setReturnValue(IncognitoMod.getOptions().spoofedCPU.getVendor());
         }
     }
