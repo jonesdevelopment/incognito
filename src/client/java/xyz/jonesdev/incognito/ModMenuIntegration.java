@@ -26,6 +26,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import xyz.jonesdev.incognito.config.ConfigFile;
+import xyz.jonesdev.incognito.hardware.CPUVendor;
 import xyz.jonesdev.incognito.hardware.GPUVendor;
 import xyz.jonesdev.incognito.hardware.GPUVersion;
 
@@ -68,6 +69,12 @@ public final class ModMenuIntegration implements ModMenuApi {
                         IncognitoMod.getOptions().cpuModel)
                 .setDefaultValue("AMD Ryzen 7 5800X 8-Core Processor")
                 .setSaveConsumer(newValue -> IncognitoMod.getOptions().cpuModel = newValue)
+                .build());
+
+        cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Vendor"),
+                        IncognitoMod.getOptions().cpuVendor)
+                .setDefaultValue(CPUVendor.AMD)
+                .setSaveConsumer(newValue -> IncognitoMod.getOptions().cpuVendor = newValue)
                 .build());
 
         final ConfigCategory gpu = builder.getOrCreateCategory(Text.literal("GPU"));
