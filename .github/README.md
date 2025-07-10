@@ -32,6 +32,8 @@
 <img src="showcase.png" alt="Showcase">
 Since Incognito changes spoofs how the CPU/GPU is detected, this will work with other mods, e.g., BetterF3.
 
+*Note: This mod requires both [Cloth Config API](<https://modrinth.com/mod/cloth-config>) and [Mod Menu](<https://modrinth.com/mod/modmenu>) to be installed.*
+
 ## Why?
 
 Privacy and anonymity! It's as simple as that.
