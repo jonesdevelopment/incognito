@@ -27,31 +27,31 @@ import xyz.jonesdev.incognito.IncognitoMod;
 @Mixin(value = CentralProcessor.ProcessorIdentifier.class, remap = false)
 public final class ProcessorIdentifierMixin {
 
-    @Inject(method = "getName", at = @At("HEAD"), cancellable = true)
-    public void getName(final CallbackInfoReturnable<String> cir) {
-        if (IncognitoMod.getOptions().spoofCPU) {
-            cir.setReturnValue(IncognitoMod.getOptions().cpuName);
-        }
+  @Inject(method = "getName", at = @At("HEAD"), cancellable = true)
+  public void getName(final CallbackInfoReturnable<String> cir) {
+    if (IncognitoMod.getOptions().spoofCPU) {
+      cir.setReturnValue(IncognitoMod.getOptions().cpuName);
     }
+  }
 
-    @Inject(method = "getVendor", at = @At("HEAD"), cancellable = true)
-    public void getVendor(final CallbackInfoReturnable<String> cir) {
-        if (IncognitoMod.getOptions().spoofCPU) {
-            cir.setReturnValue(IncognitoMod.getOptions().cpuVendor);
-        }
+  @Inject(method = "getVendor", at = @At("HEAD"), cancellable = true)
+  public void getVendor(final CallbackInfoReturnable<String> cir) {
+    if (IncognitoMod.getOptions().spoofCPU) {
+      cir.setReturnValue(IncognitoMod.getOptions().cpuVendor);
     }
+  }
 
-    @Inject(method = "getFamily", at = @At("HEAD"), cancellable = true)
-    public void getFamily(final CallbackInfoReturnable<String> cir) {
-        if (IncognitoMod.getOptions().spoofCPU) {
-            cir.setReturnValue(IncognitoMod.getOptions().cpuFamily);
-        }
+  @Inject(method = "getFamily", at = @At("HEAD"), cancellable = true)
+  public void getFamily(final CallbackInfoReturnable<String> cir) {
+    if (IncognitoMod.getOptions().spoofCPU) {
+      cir.setReturnValue(IncognitoMod.getOptions().cpuFamily);
     }
+  }
 
-    @Inject(method = "getModel", at = @At("HEAD"), cancellable = true)
-    public void getModel(final CallbackInfoReturnable<String> cir) {
-        if (IncognitoMod.getOptions().spoofCPU) {
-            cir.setReturnValue(IncognitoMod.getOptions().cpuModel);
-        }
+  @Inject(method = "getModel", at = @At("HEAD"), cancellable = true)
+  public void getModel(final CallbackInfoReturnable<String> cir) {
+    if (IncognitoMod.getOptions().spoofCPU) {
+      cir.setReturnValue(IncognitoMod.getOptions().cpuModel);
     }
+  }
 }

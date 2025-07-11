@@ -18,7 +18,7 @@
 package xyz.jonesdev.incognito.hardware;
 
 public final class GPUVendor {
-    public static final String NVIDIA = "NVIDIA Corporation";
-    public static final String AMD = "ATI Technologies Inc.";
-    public static final String INTEL = "Intel Inc.";
+  public static final String NVIDIA = "NVIDIA Corporation";
+  public static final String AMD = "ATI Technologies Inc.";
+  public static final String INTEL = "Intel Inc.";
 }

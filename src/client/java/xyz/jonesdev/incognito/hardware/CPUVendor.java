@@ -18,6 +18,6 @@
 package xyz.jonesdev.incognito.hardware;
 
 public final class CPUVendor {
-    public static final String AMD = "AuthenticAMD";
-    public static final String INTEL = "GenuineIntel";
+  public static final String AMD = "AuthenticAMD";
+  public static final String INTEL = "GenuineIntel";
 }

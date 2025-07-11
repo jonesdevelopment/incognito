@@ -18,7 +18,7 @@
 package xyz.jonesdev.incognito.hardware;
 
 public final class GPUVersion {
-    public static final String NVIDIA = "4.6.0 NVIDIA 576.88";
-    public static final String AMD = "4.6.0 Core Profile Context 25.6.3";
-    public static final String INTEL = "4.6.0 INTEL-32.0.101.6913";
+  public static final String NVIDIA = "4.6.0 NVIDIA 576.88";
+  public static final String AMD = "4.6.0 Core Profile Context 25.6.3";
+  public static final String INTEL = "4.6.0 INTEL-32.0.101.6913";
 }

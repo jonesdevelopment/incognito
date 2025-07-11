@@ -29,37 +29,37 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 public final class ConfigFile {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final File CONFIG_FOLDER = new File("config");
-    private static final File CONFIG_FILE = new File(CONFIG_FOLDER, "incognito.json");
+  private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+  private static final File CONFIG_FOLDER = new File("config");
+  private static final File CONFIG_FILE = new File(CONFIG_FOLDER, "incognito.json");
 
-    public final static Runnable SAVE_CONFIG = () -> {
-        if (!CONFIG_FOLDER.exists() && !CONFIG_FOLDER.mkdirs()) {
-            IncognitoMod.LOGGER.error("Could not create configuration folder");
-            return;
-        }
-        try {
-            if (!CONFIG_FILE.exists() && !CONFIG_FILE.createNewFile()) {
-                IncognitoMod.LOGGER.error("Could not create configuration file");
-                return;
-            }
-            final String json = GSON.toJson(IncognitoMod.getOptions());
-            Files.writeString(CONFIG_FILE.toPath(), json, StandardCharsets.UTF_8);
-        } catch (IOException exception) {
-            IncognitoMod.LOGGER.error("Error saving config", exception);
-        }
-    };
-
-    public static void loadConfig() {
-        if (!CONFIG_FILE.exists()) {
-            IncognitoMod.LOGGER.warn("Configuration does not exist, falling back to default implementation.");
-            return;
-        }
-        try (final InputStream inputStream = Files.newInputStream(CONFIG_FILE.toPath());
-             final InputStreamReader inputStreamReader = new InputStreamReader(inputStream)) {
-            IncognitoMod.updateOptions(GSON.fromJson(inputStreamReader, Options.class));
-        } catch (Exception exception) {
-            IncognitoMod.LOGGER.error("Error loading config", exception);
-        }
+  public final static Runnable SAVE_CONFIG = () -> {
+    if (!CONFIG_FOLDER.exists() && !CONFIG_FOLDER.mkdirs()) {
+      IncognitoMod.LOGGER.error("Could not create configuration folder");
+      return;
     }
+    try {
+      if (!CONFIG_FILE.exists() && !CONFIG_FILE.createNewFile()) {
+        IncognitoMod.LOGGER.error("Could not create configuration file");
+        return;
+      }
+      final String json = GSON.toJson(IncognitoMod.getOptions());
+      Files.writeString(CONFIG_FILE.toPath(), json, StandardCharsets.UTF_8);
+    } catch (IOException exception) {
+      IncognitoMod.LOGGER.error("Error saving config", exception);
+    }
+  };
+
+  public static void loadConfig() {
+    if (!CONFIG_FILE.exists()) {
+      IncognitoMod.LOGGER.warn("Configuration does not exist, falling back to default implementation.");
+      return;
+    }
+    try (final InputStream inputStream = Files.newInputStream(CONFIG_FILE.toPath());
+         final InputStreamReader inputStreamReader = new InputStreamReader(inputStream)) {
+      IncognitoMod.updateOptions(GSON.fromJson(inputStreamReader, Options.class));
+    } catch (Exception exception) {
+      IncognitoMod.LOGGER.error("Error loading config", exception);
+    }
+  }
 }

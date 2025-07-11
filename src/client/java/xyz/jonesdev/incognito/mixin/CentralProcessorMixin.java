@@ -27,17 +27,17 @@ import xyz.jonesdev.incognito.IncognitoMod;
 @Mixin(value = AbstractCentralProcessor.class, remap = false)
 public final class CentralProcessorMixin {
 
-    @Inject(method = "getPhysicalProcessorCount", at = @At("HEAD"), cancellable = true)
-    public void getPhysicalProcessorCount(final CallbackInfoReturnable<Integer> cir) {
-        if (IncognitoMod.getOptions().spoofCPU) {
-            cir.setReturnValue(IncognitoMod.getOptions().physicalCoreCount);
-        }
+  @Inject(method = "getPhysicalProcessorCount", at = @At("HEAD"), cancellable = true)
+  public void getPhysicalProcessorCount(final CallbackInfoReturnable<Integer> cir) {
+    if (IncognitoMod.getOptions().spoofCPU) {
+      cir.setReturnValue(IncognitoMod.getOptions().physicalCoreCount);
     }
+  }
 
-    @Inject(method = "getLogicalProcessorCount", at = @At("HEAD"), cancellable = true)
-    public void getLogicalProcessorCount(final CallbackInfoReturnable<Integer> cir) {
-        if (IncognitoMod.getOptions().spoofCPU) {
-            cir.setReturnValue(IncognitoMod.getOptions().logicalCoreCount);
-        }
+  @Inject(method = "getLogicalProcessorCount", at = @At("HEAD"), cancellable = true)
+  public void getLogicalProcessorCount(final CallbackInfoReturnable<Integer> cir) {
+    if (IncognitoMod.getOptions().spoofCPU) {
+      cir.setReturnValue(IncognitoMod.getOptions().logicalCoreCount);
     }
+  }
 }
