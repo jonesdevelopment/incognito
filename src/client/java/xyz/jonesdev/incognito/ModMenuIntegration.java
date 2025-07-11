@@ -27,9 +27,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import xyz.jonesdev.incognito.config.ConfigFile;
-import xyz.jonesdev.incognito.hardware.CPUVendor;
-import xyz.jonesdev.incognito.hardware.GPUVendor;
-import xyz.jonesdev.incognito.hardware.GPUVersion;
+import xyz.jonesdev.incognito.config.DefaultOptions;
 
 public final class ModMenuIntegration implements ModMenuApi {
 
@@ -59,7 +57,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 
     cpu.addEntry(entryBuilder.startIntField(Text.literal("Physical Cores"),
         IncognitoMod.getOptions().physicalCoreCount)
-      .setDefaultValue(8) // Example
+      .setDefaultValue(DefaultOptions.CPU_PHYSICAL_CORES)
       .setSaveConsumer(newValue -> {
         IncognitoMod.getOptions().physicalCoreCount = newValue;
         rebuildCPUInfo();
@@ -68,7 +66,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 
     cpu.addEntry(entryBuilder.startIntField(Text.literal("Logical Cores"),
         IncognitoMod.getOptions().logicalCoreCount)
-      .setDefaultValue(16) // Example
+      .setDefaultValue(DefaultOptions.CPU_LOGICAL_CORES)
       .setSaveConsumer(newValue -> {
         IncognitoMod.getOptions().logicalCoreCount = newValue;
         rebuildCPUInfo();
@@ -77,7 +75,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 
     cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Name"),
         IncognitoMod.getOptions().cpuName)
-      .setDefaultValue("AMD Ryzen 7 5800X 8-Core Processor") // Example
+      .setDefaultValue(DefaultOptions.CPU_NAME)
       .setSaveConsumer(newValue -> {
         IncognitoMod.getOptions().cpuName = newValue;
         rebuildCPUInfo();
@@ -86,7 +84,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 
     cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Vendor"),
         IncognitoMod.getOptions().cpuVendor)
-      .setDefaultValue(CPUVendor.AMD) // Example
+      .setDefaultValue(DefaultOptions.CPU_VENDOR)
       .setSaveConsumer(newValue -> {
         IncognitoMod.getOptions().cpuVendor = newValue;
         rebuildCPUInfo();
@@ -95,7 +93,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 
     cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Family"),
         IncognitoMod.getOptions().cpuFamily)
-      .setDefaultValue("23") // Example
+      .setDefaultValue(DefaultOptions.CPU_FAMILY)
       .setSaveConsumer(newValue -> {
         IncognitoMod.getOptions().cpuFamily = newValue;
         rebuildCPUInfo();
@@ -104,7 +102,7 @@ public final class ModMenuIntegration implements ModMenuApi {
 
     cpu.addEntry(entryBuilder.startStrField(Text.literal("CPU Model"),
         IncognitoMod.getOptions().cpuModel)
-      .setDefaultValue("113") // Example
+      .setDefaultValue(DefaultOptions.CPU_MODEL)
       .setSaveConsumer(newValue -> {
         IncognitoMod.getOptions().cpuModel = newValue;
         rebuildCPUInfo();
@@ -121,19 +119,19 @@ public final class ModMenuIntegration implements ModMenuApi {
 
     gpu.addEntry(entryBuilder.startStrField(Text.literal("GPU Model"),
         IncognitoMod.getOptions().gpuModel)
-      .setDefaultValue("AMD Radeon RX 7700 XT") // Example
+      .setDefaultValue(DefaultOptions.GPU_NAME)
       .setSaveConsumer(newValue -> IncognitoMod.getOptions().gpuModel = newValue)
       .build());
 
     gpu.addEntry(entryBuilder.startStrField(Text.literal("GPU Vendor"),
         IncognitoMod.getOptions().gpuVendor)
-      .setDefaultValue(GPUVendor.AMD) // Example
+      .setDefaultValue(DefaultOptions.GPU_VENDOR)
       .setSaveConsumer(newValue -> IncognitoMod.getOptions().gpuVendor = newValue)
       .build());
 
     gpu.addEntry(entryBuilder.startStrField(Text.literal("GPU Version"),
         IncognitoMod.getOptions().gpuVersion)
-      .setDefaultValue(GPUVersion.AMD) // Example
+      .setDefaultValue(DefaultOptions.GPU_DRIVER_VERSION)
       .setSaveConsumer(newValue -> IncognitoMod.getOptions().gpuVersion = newValue)
       .build());
 

@@ -19,9 +19,6 @@ package xyz.jonesdev.incognito.config;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import xyz.jonesdev.incognito.hardware.CPUVendor;
-import xyz.jonesdev.incognito.hardware.GPUVendor;
-import xyz.jonesdev.incognito.hardware.GPUVersion;
 
 public final class Options {
 
@@ -31,27 +28,27 @@ public final class Options {
 
   @Expose
   @SerializedName("cpu-physical-cores")
-  public int physicalCoreCount = 8;
+  public int physicalCoreCount = DefaultOptions.CPU_PHYSICAL_CORES;
 
   @Expose
   @SerializedName("cpu-logical-cores")
-  public int logicalCoreCount = 16;
+  public int logicalCoreCount = DefaultOptions.CPU_LOGICAL_CORES;
 
   @Expose
   @SerializedName("cpu-name")
-  public String cpuName = "AMD Ryzen 7 5800X 8-Core Processor";
+  public String cpuName = DefaultOptions.CPU_NAME;
 
   @Expose
   @SerializedName("cpu-vendor")
-  public String cpuVendor = CPUVendor.AMD;
+  public String cpuVendor = DefaultOptions.CPU_VENDOR;
 
   @Expose
   @SerializedName("cpu-family")
-  public String cpuFamily = "23";
+  public String cpuFamily = DefaultOptions.CPU_FAMILY;
 
   @Expose
   @SerializedName("cpu-model")
-  public String cpuModel = "113";
+  public String cpuModel = DefaultOptions.CPU_MODEL;
 
   @Expose
   @SerializedName("spoof-gpu")
@@ -59,13 +56,13 @@ public final class Options {
 
   @Expose
   @SerializedName("gpu-model")
-  public String gpuModel = "AMD Radeon RX 7700 XT";
+  public String gpuModel = DefaultOptions.GPU_NAME;
 
   @Expose
   @SerializedName("gpu-vendor")
-  public String gpuVendor = GPUVendor.AMD;
+  public String gpuVendor = DefaultOptions.GPU_VENDOR;
 
   @Expose
   @SerializedName("gpu-version")
-  public String gpuVersion = GPUVersion.AMD;
+  public String gpuVersion = DefaultOptions.GPU_DRIVER_VERSION;
 }
