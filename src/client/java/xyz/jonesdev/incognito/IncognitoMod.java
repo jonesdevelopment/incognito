@@ -28,6 +28,7 @@ public final class IncognitoMod implements ClientModInitializer {
   public static final Logger LOGGER = LogManager.getLogger("incognito");
 
   private static Options sessionOptions = new Options();
+  public static boolean shouldReinitCpuInfo;
 
   public static Options getOptions() {
     return sessionOptions;

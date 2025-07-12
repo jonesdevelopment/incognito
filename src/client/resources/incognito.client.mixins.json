@@ -10,6 +10,7 @@
   },
   "mixins": [
     "CentralProcessorMixin",
+    "GLXMixin",
     "ProcessorIdentifierMixin"
   ]
 }

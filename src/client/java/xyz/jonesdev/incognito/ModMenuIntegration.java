@@ -17,7 +17,6 @@
 
 package xyz.jonesdev.incognito;
 
-import com.mojang.blaze3d.platform.GLX;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
@@ -140,6 +139,6 @@ public final class ModMenuIntegration implements ModMenuApi {
   }
 
   private static void rebuildCPUInfo() {
-    GLX._init(0, false);
+    IncognitoMod.shouldReinitCpuInfo = true;
   }
 }
